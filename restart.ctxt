@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.target=restart
+comment1.params=stage
+comment1.target=void\ start(javafx.stage.Stage)
+comment2.params=event
+comment2.target=void\ handle(javafx.event.ActionEvent)
+comment3.params=event
+comment3.target=void\ handle(javafx.event.ActionEvent)
+comment4.params=event
+comment4.target=void\ handle(javafx.event.ActionEvent)
+comment5.params=event
+comment5.target=void\ handle(javafx.event.ActionEvent)
+comment6.params=event
+comment6.target=void\ handle(javafx.event.ActionEvent)
+comment7.params=args
+comment7.target=void\ main(java.lang.String[])
+numComments=8
