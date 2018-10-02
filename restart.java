@@ -120,8 +120,8 @@ public class restart extends Application {
         play.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
             public void handle(ActionEvent event) {
-                win.setVisible(true);
-                lose.setVisible(true);
+                //win.setVisible(true);
+                //lose.setVisible(true);
                 play.setVisible(false);
                 int distribute=0;
                 Set<Integer> mine = new HashSet<Integer>(); 
@@ -137,24 +137,36 @@ public class restart extends Application {
                     @Override
                         public void handle(ActionEvent event) {
                             uncovered.add(buttonInd);
+                            boolean distribute=false;
                             for(int i=0;i<uncovered.size();i++)
                             box.get(uncovered.get(i)).setGraphic(new ImageView(uncover));
-                            if (uncovered.size()==1)
+                            while(distribute==false)
                             {
-                                while(mine.size()>0)
+                                if (uncovered.size()==1)
                                 {
-                                    mine.remove(0);
-                                }
-                                for (int j=0;j<41;j++)
-                                {
-                                    mine.add((int)(Math.random()*255));
-                                }
+                                    while(mine.size()>0)
+                                    {
+                                        mine.remove(0);
+                                    }
+                                    while(mine.size()<40)
+                                    {
+                                        mine.add((int)(Math.random()*255));
+                                    }
                                 
-                                System.out.println("a"); 
+                                    //System.out.println("a"); 
+                                }
+                                if (mine.contains(uncovered.get(0))==false)
+                                distribute=true;
                             }
                             System.out.println(mine);
                             System.out.println(buttonInd);
-                
+                            for(int i=0;i<uncovered.size();i++)
+                            {
+                                if(mine.contains(uncovered.get(i)))
+                                {
+                                    //game over
+                                }
+                            }
                         }
                 });
                 
@@ -165,7 +177,7 @@ public class restart extends Application {
                 }
             }
         });
-        win.setOnAction(new EventHandler<ActionEvent>() {
+        /*win.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
             public void handle(ActionEvent event) {
                 playAgain.setVisible(true);
@@ -176,8 +188,8 @@ public class restart extends Application {
                     box.get(i).setVisible(false);
                 }
                 }
-        });
-        lose.setOnAction(new EventHandler<ActionEvent>() {
+        });*/
+        /*lose.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
             public void handle(ActionEvent event) {
                 playAgain.setVisible(true);
@@ -189,7 +201,7 @@ public class restart extends Application {
             
                 }
                 }
-        });
+        });*/
         playAgain.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
             public void handle(ActionEvent event) {
