@@ -47,8 +47,7 @@ public class restart extends Application {
     @Override
     public void start(Stage stage) throws  IOException {
         boolean spread = true;
-        boolean gameOver = false;
-        int victory = 0;
+        
         
         Rectangle rect= new Rectangle();
         rect.setX(0.0f);
@@ -124,6 +123,14 @@ public class restart extends Application {
             public void handle(ActionEvent event) {
                 //win.setVisible(true);
                 //lose.setVisible(true);
+                while(uncovered.size()>0)
+                {
+                    uncovered.remove(0);
+                }
+                for(int i=0;i<box.size();i++)
+                {
+                    box.get(i).setGraphic(new ImageView(image));
+                }
                 play.setVisible(false);
                 int distribute=0;
                 Set<Integer> mine = new HashSet<Integer>(); 
@@ -138,14 +145,17 @@ public class restart extends Application {
                 box.get(buttonInd).setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                         public void handle(ActionEvent event) {
+                            boolean gameOver = false;
+                            int victory = 0;
                             uncovered.add(buttonInd);
                             boolean distribute=false;
                             for(int i=0;i<uncovered.size();i++)
                             box.get(uncovered.get(i)).setGraphic(new ImageView(uncover));
-                            while(distribute==false)
+                            if (uncovered.size()==1)
                             {
-                                if (uncovered.size()==1)
+                                while(distribute==false)
                                 {
+                                
                                     while(mine.size()>0)
                                     {
                                         mine.remove(0);
@@ -155,10 +165,17 @@ public class restart extends Application {
                                         mine.add((int)(Math.random()*255));
                                     }
                                 
-                                    //System.out.println("a"); 
+                                    //System.out.println("a");
+                                    if (mine.contains(uncovered.get(0))==true)
+                                    {
+                                        System.out.println("Crash");
+                                    }
+                                
+                                    if (mine.contains(uncovered.get(0))==false)
+                                    {
+                                        distribute=true;
+                                    }
                                 }
-                                if (mine.contains(uncovered.get(0))==false)
-                                distribute=true;
                             }
                             System.out.println(mine);
                             System.out.println(buttonInd);
@@ -168,16 +185,34 @@ public class restart extends Application {
                                 {
                                     gameOver = true;
                                     victory =1;
+                                    for (int j=0;j<box.size();j++)
+                                    {
+                                        box.get(j).setVisible(false);
+                                    }
                                 }
                             }
+                                if (gameOver==true)
+                                {
+                                    playAgain.setVisible(true);
+                                    
+                                    if (victory==1)
+                                    {
+                
+                                    }
+                                    if (victory==2)
+                                    {   
+                
+                                    }
+                                }
                         }
                 });
-                
+                       
                 
             
 
 
                 }
+                
             }
         });
         /*win.setOnAction(new EventHandler<ActionEvent>() {
@@ -205,6 +240,7 @@ public class restart extends Application {
                 }
                 }
         });*/
+       
         playAgain.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
             public void handle(ActionEvent event) {
@@ -218,7 +254,8 @@ public class restart extends Application {
                 }
                 }
         });
-        if (
+        
+        
 
     }
     public static void main(String args[]){
