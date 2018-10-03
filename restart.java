@@ -47,6 +47,8 @@ public class restart extends Application {
     @Override
     public void start(Stage stage) throws  IOException {
         boolean spread = true;
+        boolean gameOver = false;
+        int victory = 0;
         
         Rectangle rect= new Rectangle();
         rect.setX(0.0f);
@@ -164,7 +166,8 @@ public class restart extends Application {
                             {
                                 if(mine.contains(uncovered.get(i)))
                                 {
-                                    //game over
+                                    gameOver = true;
+                                    victory =1;
                                 }
                             }
                         }
@@ -215,6 +218,7 @@ public class restart extends Application {
                 }
                 }
         });
+        if (
 
     }
     public static void main(String args[]){
