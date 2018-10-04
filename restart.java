@@ -58,6 +58,14 @@ public class restart extends Application {
         
         Image image = new Image("minesweeper square.png",20,20, false, false);
         Image uncover = new Image("white square.png",20,20, false, false);
+        Image one = new Image("1 square.png",20,20, false, false);
+        Image two = new Image("2 square.png",20,20, false, false);
+        Image three = new Image("3 square.png",20,20, false, false);
+        Image four = new Image("4 square.png",20,20, false, false);
+        Image five = new Image("5 square.png",20,20, false, false);
+        Image six = new Image("6 square.png",20,20, false, false);
+        Image seven = new Image("7 square.png",20,20, false, false);
+        Image eight = new Image("8 square.png",20,20, false, false);
         
 
         Button win=new Button();
@@ -149,39 +157,81 @@ public class restart extends Application {
                             int victory = 0;
                             uncovered.add(buttonInd);
                             boolean distribute=false;
+                            int ad=0;
+                            ArrayList<Integer> adj = new ArrayList<Integer>();
                             for(int i=0;i<uncovered.size();i++)
-                            box.get(uncovered.get(i)).setGraphic(new ImageView(uncover));
+                            {
+                                
+                            }
                             if (uncovered.size()==1)
                             {
-                                while(distribute==false)
-                                {
                                 
-                                    while(mine.size()>0)
-                                    {
-                                        mine.remove(0);
-                                    }
+                                
+                                    
                                     while(mine.size()<40)
                                     {
                                         mine.add((int)(Math.random()*255));
+                                        if (mine.contains(uncovered.get(0))==true)
+                                        {
+                                            System.out.print("Crash");
+                                            mine.remove(mine.size()-1);
+                                        }
                                     }
                                 
                                     //System.out.println("a");
-                                    if (mine.contains(uncovered.get(0))==true)
-                                    {
-                                        System.out.println("Crash");
-                                    }
+                                    
                                 
-                                    if (mine.contains(uncovered.get(0))==false)
+                            }
+
+                                if(uncovered.get(uncovered.size()-1)>15)
+                                {
+                                    if(mine.contains(uncovered.get(uncovered.size()-1)-16))
                                     {
-                                        distribute=true;
+                                        ad++;
                                     }
                                 }
+                                adj.add(ad);
+                            if (adj.get(adj.size()-1)==0)
+                            {
+                                box.get(uncovered.get(uncovered.size()-1)).setGraphic(new ImageView(uncover));
+                            }
+                            else if (adj.get(adj.size()-1) == 1)
+                            {
+                                box.get(uncovered.get(uncovered.size()-1)).setGraphic(new ImageView(one));
+                            }
+                            else if (adj.get(adj.size()-1) == 2)
+                            {
+                                box.get(uncovered.get(uncovered.size()-1)).setGraphic(new ImageView(two));
+                            }
+                            else if (adj.get(adj.size()-1) == 3)
+                            {
+                                box.get(uncovered.get(uncovered.size()-1)).setGraphic(new ImageView(three));
+                            }
+                            else if (adj.get(adj.size()-1) == 4)
+                            {
+                                box.get(uncovered.get(uncovered.size()-1)).setGraphic(new ImageView(four));
+                            }
+                            else if (adj.get(adj.size()-1) == 5)
+                            {
+                                box.get(uncovered.get(uncovered.size()-1)).setGraphic(new ImageView(five));
+                            }
+                            else if (adj.get(adj.size()-1) == 6)
+                            {
+                                box.get(uncovered.get(uncovered.size()-1)).setGraphic(new ImageView(six));
+                            }
+                            else if (adj.get(adj.size()-1) == 7)
+                            {
+                                box.get(uncovered.get(uncovered.size()-1)).setGraphic(new ImageView(seven));
+                            }
+                            else if (adj.get(adj.size()-1) == 8)
+                            {
+                                box.get(uncovered.get(uncovered.size()-1)).setGraphic(new ImageView(eight));
                             }
                             System.out.println(mine);
                             System.out.println(buttonInd);
                             for(int i=0;i<uncovered.size();i++)
                             {
-                                if(mine.contains(uncovered.get(i)))
+                                if(mine.contains(uncovered.get(i))&&i!=0)
                                 {
                                     gameOver = true;
                                     victory =1;
