@@ -66,6 +66,7 @@ public class restart extends Application {
         Image six = new Image("6 square.png",20,20, false, false);
         Image seven = new Image("7 square.png",20,20, false, false);
         Image eight = new Image("8 square.png",20,20, false, false);
+        Image bomb = new Image("bomb.png",20,20,false, false);
         
 
         Button win=new Button();
@@ -90,7 +91,7 @@ public class restart extends Application {
         Button playAgain=new Button();
         playAgain.setText("play Again");
         playAgain.setTranslateX(150);
-        playAgain.setTranslateY(100);
+        playAgain.setTranslateY(650);
         playAgain.setVisible(false);
         
         Group root = new Group(rect,win,lose,play,playAgain);
@@ -190,10 +191,121 @@ public class restart extends Application {
                                         ad++;
                                     }
                                 }
+                                if(uncovered.get(uncovered.size()-1)<240)
+                                {
+                                    if(mine.contains(uncovered.get(uncovered.size()-1)+16))
+                                    {
+                                        ad++;
+                                    }
+                                }
+                                if(uncovered.get(uncovered.size()-1)%16>0)
+                                {
+                                    if(mine.contains(uncovered.get(uncovered.size()-1)+1))
+                                    {
+                                        ad++;
+                                    }
+                                }
+                                if(uncovered.get(uncovered.size()-1)%16<15)
+                                {
+                                    if(mine.contains(uncovered.get(uncovered.size()-1)-1))
+                                    {
+                                        ad++;
+                                    }
+                                }
+                                if(uncovered.get(uncovered.size()-1)%16>0&&uncovered.get(uncovered.size()-1)>15)
+                                {
+                                    if(mine.contains(uncovered.get(uncovered.size()-1)-15))
+                                    {
+                                        ad++;
+                                    }
+                                }
+                                if(uncovered.get(uncovered.size()-1)%16>0&&uncovered.get(uncovered.size()-1)<240)
+                                {
+                                    if(mine.contains(uncovered.get(uncovered.size()-1)+17))
+                                    {
+                                        ad++;
+                                    }
+                                }
+                                if(uncovered.get(uncovered.size()-1)%16<15&&uncovered.get(uncovered.size()-1)>15)
+                                {
+                                    if(mine.contains(uncovered.get(uncovered.size()-1)-17))
+                                    {
+                                        ad++;
+                                    }
+                                }
+                                if(uncovered.get(uncovered.size()-1)%16<15&&uncovered.get(uncovered.size()-1)<240)
+                                {
+                                    if(mine.contains(uncovered.get(uncovered.size()-1)+15))
+                                    {
+                                        ad++;
+                                    }
+                                }
                                 adj.add(ad);
                             if (adj.get(adj.size()-1)==0)
                             {
                                 box.get(uncovered.get(uncovered.size()-1)).setGraphic(new ImageView(uncover));
+                                if(uncovered.get(uncovered.size()-1)>15)
+                                {
+                                    uncovered.add(uncovered.get(uncovered.size()-1)-16); 
+                                    if(uncovered.get(uncovered.size()-1)>15)
+                                {
+                                    if(mine.contains(uncovered.get(uncovered.size()-1)-16))
+                                    {
+                                        ad++;
+                                    }
+                                }
+                                if(uncovered.get(uncovered.size()-1)<240)
+                                {
+                                    if(mine.contains(uncovered.get(uncovered.size()-1)+16))
+                                    {
+                                        ad++;
+                                    }
+                                }
+                                if(uncovered.get(uncovered.size()-1)%16>0)
+                                {
+                                    if(mine.contains(uncovered.get(uncovered.size()-1)+1))
+                                    {
+                                        ad++;
+                                    }
+                                }
+                                if(uncovered.get(uncovered.size()-1)%16<15)
+                                {
+                                    if(mine.contains(uncovered.get(uncovered.size()-1)-1))
+                                    {
+                                        ad++;
+                                    }
+                                }
+                                if(uncovered.get(uncovered.size()-1)%16>0&&uncovered.get(uncovered.size()-1)>15)
+                                {
+                                    if(mine.contains(uncovered.get(uncovered.size()-1)-15))
+                                    {
+                                        ad++;
+                                    }
+                                }
+                                if(uncovered.get(uncovered.size()-1)%16>0&&uncovered.get(uncovered.size()-1)<240)
+                                {
+                                    if(mine.contains(uncovered.get(uncovered.size()-1)+17))
+                                    {
+                                        ad++;
+                                    }
+                                }
+                                if(uncovered.get(uncovered.size()-1)%16<15&&uncovered.get(uncovered.size()-1)>15)
+                                {
+                                    if(mine.contains(uncovered.get(uncovered.size()-1)-17))
+                                    {
+                                        ad++;
+                                    }
+                                }
+                                if(uncovered.get(uncovered.size()-1)%16<15&&uncovered.get(uncovered.size()-1)<240)
+                                {
+                                    if(mine.contains(uncovered.get(uncovered.size()-1)+15))
+                                    {
+                                        ad++;
+                                    }
+                                }
+                                }       
+                                    
+                                
                             }
                             else if (adj.get(adj.size()-1) == 1)
                             {
@@ -235,19 +347,22 @@ public class restart extends Application {
                                 {
                                     gameOver = true;
                                     victory =1;
-                                    for (int j=0;j<box.size();j++)
-                                    {
-                                        box.get(j).setVisible(false);
-                                    }
+                                    
                                 }
                             }
                                 if (gameOver==true)
                                 {
                                     playAgain.setVisible(true);
-                                    
+                                    for (int j=0;j<box.size();j++)
+                                    {
+                                        if(mine.contains(box.get(j)))
+                                        {
+                                            box.get(j).setGraphic(new ImageView(bomb));
+                                        }
+                                    }
                                     if (victory==1)
                                     {
-                
+                                    
                                     }
                                     if (victory==2)
                                     {   
@@ -302,6 +417,12 @@ public class restart extends Application {
                 {
                     uncovered.remove(0);
                 }
+                    for (int j=0;j<box.size();j++)
+                                    {
+                                        
+                                            box.get(j).setVisible(false);
+                                        
+                                    }
                 }
         });
         
