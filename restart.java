@@ -183,59 +183,61 @@ public class restart extends Application {
                                     
                                 
                             }
-
-                                if(uncovered.get(uncovered.size()-1)>15)
+                            for(int i=0;i<box.size();i++)
+                            {   
+                                ad=0;
+                                if(box.size()-i-1>15)
                                 {
-                                    if(mine.contains(uncovered.get(uncovered.size()-1)-16))
+                                    if(mine.contains(box.size()-i-1-16))
                                     {
                                         ad++;
                                     }
                                 }
-                                if(uncovered.get(uncovered.size()-1)<240)
+                                if(box.size()-i-1<240)
                                 {
-                                    if(mine.contains(uncovered.get(uncovered.size()-1)+16))
+                                    if(mine.contains(box.size()-i-1+16))
                                     {
                                         ad++;
                                     }
                                 }
-                                if(uncovered.get(uncovered.size()-1)%16>0)
+                                if((box.size()-i-1)%16>0)
                                 {
-                                    if(mine.contains(uncovered.get(uncovered.size()-1)+1))
+                                    if(mine.contains(box.size()-i-1+1))
                                     {
                                         ad++;
                                     }
                                 }
-                                if(uncovered.get(uncovered.size()-1)%16<15)
+                                if((box.size()-i-1)%16<15)
                                 {
-                                    if(mine.contains(uncovered.get(uncovered.size()-1)-1))
+                                    if(mine.contains(box.size()-i-1-1))
                                     {
                                         ad++;
                                     }
                                 }
-                                if(uncovered.get(uncovered.size()-1)%16>0&&uncovered.get(uncovered.size()-1)>15)
+                                if((box.size()-i-1)%16>0&&(box.size()-i-1)>15)
                                 {
-                                    if(mine.contains(uncovered.get(uncovered.size()-1)-15))
+                                    if(mine.contains(box.size()-i-1-15))
                                     {
                                         ad++;
                                     }
                                 }
-                                if(uncovered.get(uncovered.size()-1)%16>0&&uncovered.get(uncovered.size()-1)<240)
+                                if((box.size()-i-1)%16>0&&(box.size()-i-1)<240)
                                 {
-                                    if(mine.contains(uncovered.get(uncovered.size()-1)+17))
+                                    if(mine.contains(box.size()-i-1+17))
                                     {
                                         ad++;
                                     }
                                 }
-                                if(uncovered.get(uncovered.size()-1)%16<15&&uncovered.get(uncovered.size()-1)>15)
+                                if((box.size()-i-1)%16<15&&(box.size()-i-1)>15)
                                 {
-                                    if(mine.contains(uncovered.get(uncovered.size()-1)-17))
+                                    if(mine.contains(box.size()-i-1-17))
                                     {
                                         ad++;
                                     }
                                 }
-                                if(uncovered.get(uncovered.size()-1)%16<15&&uncovered.get(uncovered.size()-1)<240)
+                                if((box.size()-i-1)%16<15&&box.size()-i-1<240)
                                 {
-                                    if(mine.contains(uncovered.get(uncovered.size()-1)+15))
+                                    if(mine.contains(box.size()-i-1+15))
                                     {
                                         ad++;
                                     }
@@ -243,102 +245,45 @@ public class restart extends Application {
                                 adj.add(ad);
                             if (adj.get(adj.size()-1)==0)
                             {
-                                box.get(uncovered.get(uncovered.size()-1)).setGraphic(new ImageView(uncover));
-                                if(uncovered.get(uncovered.size()-1)>15)
-                                {
-                                    uncovered.add(uncovered.get(uncovered.size()-1)-16); 
-                                    if(uncovered.get(uncovered.size()-1)>15)
-                                {
-                                    if(mine.contains(uncovered.get(uncovered.size()-1)-16))
-                                    {
-                                        ad++;
-                                    }
-                                }
-                                if(uncovered.get(uncovered.size()-1)<240)
-                                {
-                                    if(mine.contains(uncovered.get(uncovered.size()-1)+16))
-                                    {
-                                        ad++;
-                                    }
-                                }
-                                if(uncovered.get(uncovered.size()-1)%16>0)
-                                {
-                                    if(mine.contains(uncovered.get(uncovered.size()-1)+1))
-                                    {
-                                        ad++;
-                                    }
-                                }
-                                if(uncovered.get(uncovered.size()-1)%16<15)
-                                {
-                                    if(mine.contains(uncovered.get(uncovered.size()-1)-1))
-                                    {
-                                        ad++;
-                                    }
-                                }
-                                if(uncovered.get(uncovered.size()-1)%16>0&&uncovered.get(uncovered.size()-1)>15)
-                                {
-                                    if(mine.contains(uncovered.get(uncovered.size()-1)-15))
-                                    {
-                                        ad++;
-                                    }
-                                }
-                                if(uncovered.get(uncovered.size()-1)%16>0&&uncovered.get(uncovered.size()-1)<240)
-                                {
-                                    if(mine.contains(uncovered.get(uncovered.size()-1)+17))
-                                    {
-                                        ad++;
-                                    }
-                                }
-                                if(uncovered.get(uncovered.size()-1)%16<15&&uncovered.get(uncovered.size()-1)>15)
-                                {
-                                    if(mine.contains(uncovered.get(uncovered.size()-1)-17))
-                                    {
-                                        ad++;
-                                    }
-                                }
-                                if(uncovered.get(uncovered.size()-1)%16<15&&uncovered.get(uncovered.size()-1)<240)
-                                {
-                                    if(mine.contains(uncovered.get(uncovered.size()-1)+15))
-                                    {
-                                        ad++;
-                                    }
-                                }
-                                }       
+                                box.get(i).setGraphic(new ImageView(uncover));
+                                
                                     
                                 
                             }
                             else if (adj.get(adj.size()-1) == 1)
                             {
-                                box.get(uncovered.get(uncovered.size()-1)).setGraphic(new ImageView(one));
+                                box.get(i).setGraphic(new ImageView(one));
                             }
                             else if (adj.get(adj.size()-1) == 2)
                             {
-                                box.get(uncovered.get(uncovered.size()-1)).setGraphic(new ImageView(two));
+                                box.get(i).setGraphic(new ImageView(two));
                             }
                             else if (adj.get(adj.size()-1) == 3)
                             {
-                                box.get(uncovered.get(uncovered.size()-1)).setGraphic(new ImageView(three));
+                                box.get(i).setGraphic(new ImageView(three));
                             }
                             else if (adj.get(adj.size()-1) == 4)
                             {
-                                box.get(uncovered.get(uncovered.size()-1)).setGraphic(new ImageView(four));
+                                box.get(i).setGraphic(new ImageView(four));
                             }
                             else if (adj.get(adj.size()-1) == 5)
                             {
-                                box.get(uncovered.get(uncovered.size()-1)).setGraphic(new ImageView(five));
+                                box.get(i).setGraphic(new ImageView(five));
                             }
                             else if (adj.get(adj.size()-1) == 6)
                             {
-                                box.get(uncovered.get(uncovered.size()-1)).setGraphic(new ImageView(six));
+                                box.get(i).setGraphic(new ImageView(six));
                             }
                             else if (adj.get(adj.size()-1) == 7)
                             {
-                                box.get(uncovered.get(uncovered.size()-1)).setGraphic(new ImageView(seven));
+                                box.get(i).setGraphic(new ImageView(seven));
                             }
                             else if (adj.get(adj.size()-1) == 8)
                             {
-                                box.get(uncovered.get(uncovered.size()-1)).setGraphic(new ImageView(eight));
+                                box.get(i).setGraphic(new ImageView(eight));
                             }
+                            else if (mine.contains(
+                        }
                             System.out.println(mine);
                             System.out.println(buttonInd);
                             for(int i=0;i<uncovered.size();i++)
