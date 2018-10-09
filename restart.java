@@ -150,16 +150,17 @@ public class restart extends Application {
                     box.get(i).setOnAction(e -> {
                     System.out.println("Button pressed " + ((Button) e.getSource()).getText()+buttonInd);
                 });
-                    
+                ArrayList<Integer> adj = new ArrayList<Integer>();    
                 box.get(buttonInd).setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                         public void handle(ActionEvent event) {
-                            boolean gameOver = false;
-                            int victory = 0;
-                            uncovered.add(buttonInd);
+                            
+                            
+                                uncovered.add(buttonInd);
+                            
                             boolean distribute=false;
                             int ad=0;
-                            ArrayList<Integer> adj = new ArrayList<Integer>();
+                            
                             for(int i=0;i<uncovered.size();i++)
                             {
                                 
@@ -186,104 +187,145 @@ public class restart extends Application {
                             for(int i=0;i<box.size();i++)
                             {   
                                 ad=0;
-                                if(box.size()-i-1>15)
+                                if(i>15)
                                 {
-                                    if(mine.contains(box.size()-i-1-16))
+                                    if(mine.contains(i-16))
                                     {
                                         ad++;
                                     }
                                 }
-                                if(box.size()-i-1<240)
+                                if(i<240)
                                 {
-                                    if(mine.contains(box.size()-i-1+16))
+                                    if(mine.contains(i+16))
                                     {
                                         ad++;
                                     }
                                 }
-                                if((box.size()-i-1)%16>0)
+                                if(i%16>0)
                                 {
-                                    if(mine.contains(box.size()-i-1+1))
+                                    if(mine.contains(i-1))
                                     {
                                         ad++;
                                     }
                                 }
-                                if((box.size()-i-1)%16<15)
+                                if(i%16<15)
                                 {
-                                    if(mine.contains(box.size()-i-1-1))
+                                    if(mine.contains(i+1))
                                     {
                                         ad++;
                                     }
                                 }
-                                if((box.size()-i-1)%16>0&&(box.size()-i-1)>15)
+                                if(i%16>0&&i>15)
                                 {
-                                    if(mine.contains(box.size()-i-1-15))
+                                    if(mine.contains(i-17))
                                     {
                                         ad++;
                                     }
                                 }
-                                if((box.size()-i-1)%16>0&&(box.size()-i-1)<240)
+                                if(i%16>0&&i<240)
                                 {
-                                    if(mine.contains(box.size()-i-1+17))
+                                    if(mine.contains(i+15))
                                     {
                                         ad++;
                                     }
                                 }
-                                if((box.size()-i-1)%16<15&&(box.size()-i-1)>15)
+                                if(i%16<15&&i>15)
                                 {
-                                    if(mine.contains(box.size()-i-1-17))
+                                    if(mine.contains(i-15))
                                     {
                                         ad++;
                                     }
                                 }
-                                if((box.size()-i-1)%16<15&&box.size()-i-1<240)
+                                if(i%16<15&&i<240)
                                 {
-                                    if(mine.contains(box.size()-i-1+15))
+                                    if(mine.contains(i+17))
                                     {
                                         ad++;
                                     }
                                 }
                                 adj.add(ad);
-                            if (adj.get(adj.size()-1)==0)
+                            }
+
+                            
+                            boolean gameOver = false;
+                            int victory = 0;
+                            for (int i=0;i<uncovered.size();i++)
+                            if (adj.get(uncovered.get(i))==0)
                             {
-                                box.get(i).setGraphic(new ImageView(uncover));
-                                
+                                box.get(uncovered.get(i)).setGraphic(new ImageView(uncover));
+                                if(i>15)
+                                {
+                                    uncovered.add(uncovered.get(i-16));
+                                }
+                                if(i<240)
+                                {
+                                    uncovered.add(uncovered.get(i+16));
+                                }
+                                if(i%16>0)
+                                {
+                                    uncovered.add(uncovered.get(i-1));
+                                }
+                                if(i%16<15)
+                                {
+                                    uncovered.add(uncovered.get(i+1));
+                                }
+                                if(i%16>0&&i>15)
+                                {
+                                    uncovered.add(uncovered.get(i-17));
+                                }
+                                if(i%16>0&&i<240)
+                                {
+                                    uncovered.add(uncovered.get(i+15));
+                                }
+                                if(i%16<15&&i>15)
+                                {
+                                    uncovered.add(uncovered.get(i-15));
+                                }
+                                if(i%16<15&&i<240)
+                                {
+                                    uncovered.add(uncovered.get(i+17));
+                                }
                                     
                                 
                             }
-                            else if (adj.get(adj.size()-1) == 1)
+                            else if (adj.get(uncovered.get(i)) == 1)
                             {
-                                box.get(i).setGraphic(new ImageView(one));
+                                box.get(uncovered.get(i)).setGraphic(new ImageView(one));
                             }
-                            else if (adj.get(adj.size()-1) == 2)
+                            else if (adj.get(uncovered.get(i)) == 2)
                             {
-                                box.get(i).setGraphic(new ImageView(two));
+                                box.get(uncovered.get(i)).setGraphic(new ImageView(two));
                             }
-                            else if (adj.get(adj.size()-1) == 3)
+                            else if (adj.get(uncovered.get(i)) == 3)
                             {
-                                box.get(i).setGraphic(new ImageView(three));
+                                box.get(uncovered.get(i)).setGraphic(new ImageView(three));
                             }
-                            else if (adj.get(adj.size()-1) == 4)
+                            else if (adj.get(uncovered.get(i)) == 4)
                             {
-                                box.get(i).setGraphic(new ImageView(four));
+                                box.get(uncovered.get(i)).setGraphic(new ImageView(four));
                             }
-                            else if (adj.get(adj.size()-1) == 5)
+                            else if (adj.get(uncovered.get(i)) == 5)
                             {
-                                box.get(i).setGraphic(new ImageView(five));
+                                box.get(uncovered.get(i)).setGraphic(new ImageView(five));
                             }
-                            else if (adj.get(adj.size()-1) == 6)
+                            else if (adj.get(uncovered.get(i)) == 6)
                             {
-                                box.get(i).setGraphic(new ImageView(six));
+                                box.get(uncovered.get(i)).setGraphic(new ImageView(six));
                             }
-                            else if (adj.get(adj.size()-1) == 7)
+                            else if (adj.get(uncovered.get(i)) == 7)
                             {
-                                box.get(i).setGraphic(new ImageView(seven));
+                                box.get(uncovered.get(i)).setGraphic(new ImageView(seven));
                             }
-                            else if (adj.get(adj.size()-1) == 8)
+                            else if (adj.get(uncovered.get(i)) == 8)
                             {
-                                box.get(i).setGraphic(new ImageView(eight));
+                                box.get(uncovered.get(i)).setGraphic(new ImageView(eight));
                             }
-                            else if (mine.contains(
-                        }
+                            else if (mine.contains(uncovered.get(i)))
+                            {
+                                box.get(uncovered.get(i)).setGraphic(new ImageView(bomb));
+                            }
+                        
+                        
                             System.out.println(mine);
                             System.out.println(buttonInd);
                             for(int i=0;i<uncovered.size();i++)
@@ -300,7 +342,7 @@ public class restart extends Application {
                                     playAgain.setVisible(true);
                                     for (int j=0;j<box.size();j++)
                                     {
-                                        if(mine.contains(box.get(j)))
+                                        if(mine.contains(j))
                                         {
                                             box.get(j).setGraphic(new ImageView(bomb));
                                         }
