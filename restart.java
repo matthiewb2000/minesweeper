@@ -249,45 +249,80 @@ public class restart extends Application {
                             
                             boolean gameOver = false;
                             int victory = 0;
-                            for (int i=0;i<uncovered.size();i++)
-                            if (adj.get(uncovered.get(i))==0)
+                        for (int i=0;i<uncovered.size();i++)
+                        {
+                            if (adj.get(uncovered.get(i)==0)
                             {
-                                box.get(uncovered.get(i)).setGraphic(new ImageView(uncover));
+                                box.get(uncovered.get(i).setGraphic(new ImageView(uncover));
+                                System.out.println(uncovered.get(i));
                                 if(i>15)
                                 {
-                                    uncovered.add(uncovered.get(i-16));
+                                    if (uncovered.contains(uncovered.get(i)-16)==false)
+                                    {
+                                        uncovered.add(uncovered.get(i)-16);
+                                        System.out.println(uncovered.get(i)-16+" up");
+                                    }
                                 }
                                 if(i<240)
                                 {
-                                    uncovered.add(uncovered.get(i+16));
+                                    if (uncovered.contains(uncovered.get(uncovered.size()-1)+16)==false)
+                                    {
+                                        uncovered.add(uncovered.get(i)+16);//working
+                                        System.out.println(uncovered.get(i)+16+" down");
+                                    }
                                 }
                                 if(i%16>0)
                                 {
-                                    uncovered.add(uncovered.get(i-1));
+                                    if (uncovered.contains(uncovered.get(i)-1)==false)
+                                    {
+                                        uncovered.add(uncovered.get(i)-1);
+                                        System.out.println(uncovered.get(i)-1+" left");
+                                    }
                                 }
                                 if(i%16<15)
                                 {
-                                    uncovered.add(uncovered.get(i+1));
+                                    if (uncovered.contains(uncovered.get(i)+1)==false)
+                                    {
+                                        uncovered.add(uncovered.get(i)+1);//working
+                                        System.out.println(uncovered.get(i)+1+" right");
+                                    }
                                 }
                                 if(i%16>0&&i>15)
-                                {
-                                    uncovered.add(uncovered.get(i-17));
+                                {   
+                                    if (uncovered.contains(uncovered.get(i)-17)==false)
+                                    {
+                                        uncovered.add(uncovered.get(i)-17);
+                                        System.out.println(uncovered.get(i)-17+" up left");
+                                    }
                                 }
                                 if(i%16>0&&i<240)
                                 {
-                                    uncovered.add(uncovered.get(i+15));
+                                    if (uncovered.contains(uncovered.get(i)+15)==false)
+                                    {
+                                        uncovered.add(uncovered.get(i)+15);
+                                        System.out.println(uncovered.get(i)+15+" down right");
+                                    }
                                 }
                                 if(i%16<15&&i>15)
                                 {
-                                    uncovered.add(uncovered.get(i-15));
+                                    if (uncovered.contains(uncovered.get(i)-15)==false)
+                                    {
+                                        uncovered.add(uncovered.get(i)-15);
+                                        System.out.println(uncovered.get(i)-15+" up right");
+                                    }
                                 }
                                 if(i%16<15&&i<240)
                                 {
-                                    uncovered.add(uncovered.get(i+17));
+                                    if (uncovered.contains(uncovered.get(i)+17)==false)
+                                    {
+                                        uncovered.add(uncovered.get(i)+17);//working
+                                        System.out.println(uncovered.get(i)+17+" down left");
+                                    }
                                 }
                                     
                                 
                             }
+                            
                             else if (adj.get(uncovered.get(i)) == 1)
                             {
                                 box.get(uncovered.get(i)).setGraphic(new ImageView(one));
@@ -324,7 +359,7 @@ public class restart extends Application {
                             {
                                 box.get(uncovered.get(i)).setGraphic(new ImageView(bomb));
                             }
-                        
+                        }
                         
                             System.out.println(mine);
                             System.out.println(buttonInd);
