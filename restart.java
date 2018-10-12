@@ -37,7 +37,19 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.paint.Color;
+import javafx.scene.input.*;
+import javafx.application.Application;
+import javafx.event.EventHandler;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+
+
 
 
 
@@ -67,6 +79,7 @@ public class restart extends Application {
         Image seven = new Image("7 square.png",20,20, false, false);
         Image eight = new Image("8 square.png",20,20, false, false);
         Image bomb = new Image("bomb.png",20,20,false, false);
+        Image rFlag = new Image("red_flag.png",20,20,false,false);
         
 
         Button win=new Button();
@@ -150,6 +163,8 @@ public class restart extends Application {
                     box.get(i).setOnAction(e -> {
                     System.out.println("Button pressed " + ((Button) e.getSource()).getText()+buttonInd);
                 });
+                boolean gameOver = false;
+                int victory = 0;
                 ArrayList<Integer> adj = new ArrayList<Integer>();    
                 box.get(buttonInd).setOnAction(new EventHandler<ActionEvent>() {
                     @Override
@@ -247,15 +262,14 @@ public class restart extends Application {
                             }
 
                             
-                            boolean gameOver = false;
-                            int victory = 0;
+                            
                         for (int i=0;i<uncovered.size();i++)
                         {
-                            if (adj.get(uncovered.get(i)==0)
+                            if (adj.get(uncovered.get(i))==0)
                             {
-                                box.get(uncovered.get(i).setGraphic(new ImageView(uncover));
+                                box.get(uncovered.get(i)).setGraphic(new ImageView(uncover));
                                 System.out.println(uncovered.get(i));
-                                if(i>15)
+                                if(uncovered.get(i)>15)
                                 {
                                     if (uncovered.contains(uncovered.get(i)-16)==false)
                                     {
@@ -263,15 +277,15 @@ public class restart extends Application {
                                         System.out.println(uncovered.get(i)-16+" up");
                                     }
                                 }
-                                if(i<240)
+                                if(uncovered.get(i)<240)
                                 {
-                                    if (uncovered.contains(uncovered.get(uncovered.size()-1)+16)==false)
+                                    if (uncovered.contains(uncovered.get(i)+16)==false)
                                     {
                                         uncovered.add(uncovered.get(i)+16);//working
                                         System.out.println(uncovered.get(i)+16+" down");
                                     }
                                 }
-                                if(i%16>0)
+                                if(uncovered.get(i)%16>0)
                                 {
                                     if (uncovered.contains(uncovered.get(i)-1)==false)
                                     {
@@ -279,7 +293,7 @@ public class restart extends Application {
                                         System.out.println(uncovered.get(i)-1+" left");
                                     }
                                 }
-                                if(i%16<15)
+                                if(uncovered.get(i)%16<15)
                                 {
                                     if (uncovered.contains(uncovered.get(i)+1)==false)
                                     {
@@ -287,7 +301,7 @@ public class restart extends Application {
                                         System.out.println(uncovered.get(i)+1+" right");
                                     }
                                 }
-                                if(i%16>0&&i>15)
+                                if(uncovered.get(i)%16>0&&uncovered.get(i)>15)
                                 {   
                                     if (uncovered.contains(uncovered.get(i)-17)==false)
                                     {
@@ -295,7 +309,7 @@ public class restart extends Application {
                                         System.out.println(uncovered.get(i)-17+" up left");
                                     }
                                 }
-                                if(i%16>0&&i<240)
+                                if(uncovered.get(i)%16>0&&uncovered.get(i)<240)
                                 {
                                     if (uncovered.contains(uncovered.get(i)+15)==false)
                                     {
@@ -303,7 +317,7 @@ public class restart extends Application {
                                         System.out.println(uncovered.get(i)+15+" down right");
                                     }
                                 }
-                                if(i%16<15&&i>15)
+                                if(uncovered.get(i)%16<15&&uncovered.get(i)>15)
                                 {
                                     if (uncovered.contains(uncovered.get(i)-15)==false)
                                     {
@@ -311,7 +325,7 @@ public class restart extends Application {
                                         System.out.println(uncovered.get(i)-15+" up right");
                                     }
                                 }
-                                if(i%16<15&&i<240)
+                                if(uncovered.get(i)%16<15&&uncovered.get(i)<240)
                                 {
                                     if (uncovered.contains(uncovered.get(i)+17)==false)
                                     {
@@ -363,16 +377,36 @@ public class restart extends Application {
                         
                             System.out.println(mine);
                             System.out.println(buttonInd);
-                            for(int i=0;i<uncovered.size();i++)
-                            {
-                                if(mine.contains(uncovered.get(i))&&i!=0)
-                                {
-                                    gameOver = true;
-                                    victory =1;
-                                    
-                                }
-                            }
-                                if (gameOver==true)
+                            
+                        }
+                });
+                ArrayList<Integer> flagged = new ArrayList<Integer>();     
+                 box.get(i).setOnMouseClicked(new EventHandler<MouseEvent>() {
+ 
+                     @Override
+                     public void handle(MouseEvent event) {
+                    MouseButton button = event.getButton();
+                     if(button==MouseButton.SECONDARY){
+                         box.get(buttonInd).setGraphic(new ImageView(rFlag));
+                         flagged.add(buttonInd);
+                    }
+                    }
+                });
+                int detected=0;
+                for(int j=0;i<flagged.size();i++)
+                {
+                    if(mine.contains(flagged.get(j)))
+                    {
+                        detected=0;
+                        detected++;
+                    }
+                }
+                if (detected>=mine.size())
+                {
+                    gameOver=true;
+                    victory=2;
+                }
+                if (gameOver==true)
                                 {
                                     playAgain.setVisible(true);
                                     for (int j=0;j<box.size();j++)
@@ -391,13 +425,6 @@ public class restart extends Application {
                 
                                     }
                                 }
-                        }
-                });
-                       
-                
-            
-
-
                 }
                 
             }
