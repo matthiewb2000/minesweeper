@@ -155,21 +155,25 @@ public class restart extends Application {
                 }
                 play.setVisible(false);
                 int distribute=0;
+                
+                ArrayList<Integer> flagged = new ArrayList<Integer>();
                 Set<Integer> mine = new HashSet<Integer>(); 
+                
                 for(int i=0;i<box.size();i++)
                 {
                     box.get(i).setVisible(true);
+                   
                     final int buttonInd = i;
                     box.get(i).setOnAction(e -> {
                     System.out.println("Button pressed " + ((Button) e.getSource()).getText()+buttonInd);
                 });
-                boolean gameOver = false;
-                int victory = 0;
+                  boolean gameOver = false;
+                  int victory = 0;
                 ArrayList<Integer> adj = new ArrayList<Integer>();    
                 box.get(buttonInd).setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                         public void handle(ActionEvent event) {
-                            
+                        
                             
                                 uncovered.add(buttonInd);
                             
@@ -268,7 +272,7 @@ public class restart extends Application {
                             if (adj.get(uncovered.get(i))==0)
                             {
                                 box.get(uncovered.get(i)).setGraphic(new ImageView(uncover));
-                                System.out.println(uncovered.get(i));
+                                //System.out.println(uncovered.get(i));
                                 if(uncovered.get(i)>15)
                                 {
                                     if (uncovered.contains(uncovered.get(i)-16)==false)
@@ -337,76 +341,94 @@ public class restart extends Application {
                                 
                             }
                             
-                            else if (adj.get(uncovered.get(i)) == 1)
+                            if (adj.get(uncovered.get(i)) == 1)
                             {
                                 box.get(uncovered.get(i)).setGraphic(new ImageView(one));
+                                
                             }
-                            else if (adj.get(uncovered.get(i)) == 2)
+                            if (adj.get(uncovered.get(i)) == 2)
                             {
                                 box.get(uncovered.get(i)).setGraphic(new ImageView(two));
                             }
-                            else if (adj.get(uncovered.get(i)) == 3)
+                            if (adj.get(uncovered.get(i)) == 3)
                             {
                                 box.get(uncovered.get(i)).setGraphic(new ImageView(three));
                             }
-                            else if (adj.get(uncovered.get(i)) == 4)
+                            if (adj.get(uncovered.get(i)) == 4)
                             {
                                 box.get(uncovered.get(i)).setGraphic(new ImageView(four));
                             }
-                            else if (adj.get(uncovered.get(i)) == 5)
+                            if (adj.get(uncovered.get(i)) == 5)
                             {
                                 box.get(uncovered.get(i)).setGraphic(new ImageView(five));
                             }
-                            else if (adj.get(uncovered.get(i)) == 6)
+                            if (adj.get(uncovered.get(i)) == 6)
                             {
                                 box.get(uncovered.get(i)).setGraphic(new ImageView(six));
                             }
-                            else if (adj.get(uncovered.get(i)) == 7)
+                            if (adj.get(uncovered.get(i)) == 7)
                             {
                                 box.get(uncovered.get(i)).setGraphic(new ImageView(seven));
                             }
-                            else if (adj.get(uncovered.get(i)) == 8)
+                            if (adj.get(uncovered.get(i)) == 8)
                             {
                                 box.get(uncovered.get(i)).setGraphic(new ImageView(eight));
                             }
-                            else if (mine.contains(uncovered.get(i)))
+                            if (mine.contains(uncovered.get(i)))
                             {
                                 box.get(uncovered.get(i)).setGraphic(new ImageView(bomb));
+                                
                             }
                         }
                         
                             System.out.println(mine);
                             System.out.println(buttonInd);
+                            for (int j=0;j<uncovered.size();j++)
+                            {
+                                if (mine.contains(uncovered.get(j)))
+                            {
+                                for (int k=0;k<box.size();k++)
+                                {
+                                    if(mine.contains(k))
+                                    {
+                                        box.get(k).setGraphic(new ImageView(bomb));
+                                    }
+                                }
+                                gameOver=true;
+                                victory=1;
+                                System.out.print("check");
+                            }
+                        }
                             
                         }
                 });
-                ArrayList<Integer> flagged = new ArrayList<Integer>();     
-                 box.get(i).setOnMouseClicked(new EventHandler<MouseEvent>() {
+                     
+                box.get(buttonInd).setOnMouseClicked(new EventHandler<MouseEvent>() {
  
-                     @Override
-                     public void handle(MouseEvent event) {
-                    MouseButton button = event.getButton();
-                     if(button==MouseButton.SECONDARY){
-                         box.get(buttonInd).setGraphic(new ImageView(rFlag));
-                         flagged.add(buttonInd);
-                    }
-                    }
-                });
-                int detected=0;
-                for(int j=0;i<flagged.size();i++)
-                {
-                    if(mine.contains(flagged.get(j)))
-                    {
-                        detected=0;
-                        detected++;
-                    }
-                }
-                if (detected>=mine.size())
-                {
-                    gameOver=true;
-                    victory=2;
-                }
-                if (gameOver==true)
+                                 @Override
+                                 public void handle(MouseEvent event) {
+                                     MouseButton button = event.getButton();
+                                     if(button==MouseButton.SECONDARY){
+                                         box.get(buttonInd).setGraphic(new ImageView(rFlag));
+                                         flagged.add(buttonInd);
+                                        }
+                                        int detected=0;
+                                        for(int j=0;j<flagged.size();j++)
+                                        {
+                                            if(mine.contains(flagged.get(j)))
+                                            {
+                                                detected=0;
+                                                detected++;
+                                            }
+                                        }
+                                        if (detected>=mine.size())
+                                        {
+                                            gameOver=true;
+                                            victory=2;
+                                        }
+                                    }
+                                });
+                                if (gameOver==true)
                                 {
                                     playAgain.setVisible(true);
                                     for (int j=0;j<box.size();j++)
@@ -426,6 +448,10 @@ public class restart extends Application {
                                     }
                                 }
                 }
+                
+                
+                
+                
                 
             }
         });
