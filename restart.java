@@ -80,6 +80,15 @@ public class restart extends Application {
         Image eight = new Image("8 square.png",20,20, false, false);
         Image bomb = new Image("bomb.png",20,20,false, false);
         Image rFlag = new Image("red_flag.png",20,20,false,false);
+        Image sad = new Image("sad_emoji.png",20,20,false,false);
+        Image neutral = new Image("smile emoji",20,20,false,false);
+        Image won = new Image("smile_emojis",20,20,false,false);
+        
+        Button face=new Button();
+        face.setGraphic(new ImageView(neutral));
+        face.setTranslateX(25);
+        face.setTranslateY(275);
+        
         
 
         Button win=new Button();
@@ -377,28 +386,21 @@ public class restart extends Application {
                             if (mine.contains(uncovered.get(i)))
                             {
                                 box.get(uncovered.get(i)).setGraphic(new ImageView(bomb));
-                                
+                                for (int k=0;k<box.size();k++)
+                                    {
+                                        if(mine.contains(k))
+                                        {
+                                            box.get(k).setGraphic(new ImageView(bomb));
+                                            
+                                        }
+                                    }
+                                    playAgain.setVisible(true);
                             }
                         }
                         
                             System.out.println(mine);
                             System.out.println(buttonInd);
-                            for (int j=0;j<uncovered.size();j++)
-                            {
-                                if (mine.contains(uncovered.get(j)))
-                            {
-                                for (int k=0;k<box.size();k++)
-                                {
-                                    if(mine.contains(k))
-                                    {
-                                        box.get(k).setGraphic(new ImageView(bomb));
-                                    }
-                                }
-                                gameOver=true;
-                                victory=1;
-                                System.out.print("check");
-                            }
-                        }
+                            
                             
                         }
                 });
@@ -417,36 +419,25 @@ public class restart extends Application {
                                         {
                                             if(mine.contains(flagged.get(j)))
                                             {
-                                                detected=0;
+                                                
                                                 detected++;
+                                                System.out.print(detected+" detected");
                                             }
                                         }
                                         if (detected>=mine.size())
                                         {
-                                            gameOver=true;
-                                            victory=2;
+                                            playAgain.setVisible(true);
+                                            for (int j=0;j<box.size();j++)
+                                            {
+                                                if(mine.contains(j))
+                                                {
+                                                    box.get(j).setGraphic(new ImageView(bomb));
+                                                }
+                                            }
                                         }
                                     }
                                 });
-                                if (gameOver==true)
-                                {
-                                    playAgain.setVisible(true);
-                                    for (int j=0;j<box.size();j++)
-                                    {
-                                        if(mine.contains(j))
-                                        {
-                                            box.get(j).setGraphic(new ImageView(bomb));
-                                        }
-                                    }
-                                    if (victory==1)
-                                    {
-                                    
-                                    }
-                                    if (victory==2)
-                                    {   
-                
-                                    }
-                                }
+                               
                 }
                 
                 
