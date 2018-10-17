@@ -54,8 +54,6 @@ import javafx.scene.layout.VBox;
 
 
 public class restart extends Application {
-    
-
     @Override
     public void start(Stage stage) throws  IOException {
         boolean spread = true;
@@ -80,14 +78,15 @@ public class restart extends Application {
         Image eight = new Image("8 square.png",20,20, false, false);
         Image bomb = new Image("bomb.png",20,20,false, false);
         Image rFlag = new Image("red_flag.png",20,20,false,false);
-        Image sad = new Image("sad_emoji.png",20,20,false,false);
-        Image neutral = new Image("smile emoji",20,20,false,false);
-        Image won = new Image("smile_emojis",20,20,false,false);
+        Image sad = new Image("sad_emoji.png",50,50,false,false);
+        Image neutral = new Image("smile emoji.png",50,50,false,false);
+        Image won = new Image("smile_emojis.png",50,50,false,false);
         
         Button face=new Button();
         face.setGraphic(new ImageView(neutral));
-        face.setTranslateX(25);
-        face.setTranslateY(275);
+        face.setTranslateX(250);
+        face.setTranslateY(0);
+        face.setVisible(true);
         
         
 
@@ -116,7 +115,7 @@ public class restart extends Application {
         playAgain.setTranslateY(650);
         playAgain.setVisible(false);
         
-        Group root = new Group(rect,win,lose,play,playAgain);
+        Group root = new Group(rect,win,lose,play,playAgain,face);
         Scene scene = new Scene(root, 600, 700);
         stage.setTitle("Drawing stuff");
         stage.setScene(scene);
@@ -134,7 +133,7 @@ public class restart extends Application {
         {
             HBox hbox = new HBox();
             box.get(i).setTranslateX(((i%16)*35)+20);
-            box.get(i).setTranslateY(((i/16)*30)+50);
+            box.get(i).setTranslateY(((i/16)*30)+75);
             box.get(i).setPrefWidth(25.0);
             box.get(i).setPrefHeight(30.0);
             HBox.setHgrow(box.get(i), Priority.ALWAYS);
@@ -154,6 +153,7 @@ public class restart extends Application {
             public void handle(ActionEvent event) {
                 //win.setVisible(true);
                 //lose.setVisible(true);
+                face.setGraphic(new ImageView(neutral));
                 while(uncovered.size()>0)
                 {
                     uncovered.remove(0);
@@ -383,7 +383,7 @@ public class restart extends Application {
                             {
                                 box.get(uncovered.get(i)).setGraphic(new ImageView(eight));
                             }
-                            if (mine.contains(uncovered.get(i)))
+                            if (mine.contains(uncovered.get(i))&&i!=0)
                             {
                                 box.get(uncovered.get(i)).setGraphic(new ImageView(bomb));
                                 for (int k=0;k<box.size();k++)
@@ -395,6 +395,7 @@ public class restart extends Application {
                                         }
                                     }
                                     playAgain.setVisible(true);
+                                    face.setGraphic(new ImageView(sad));
                             }
                         }
                         
@@ -421,12 +422,14 @@ public class restart extends Application {
                                             {
                                                 
                                                 detected++;
-                                                System.out.print(detected+" detected");
+                                                
                                             }
                                         }
+                                        System.out.println(detected+" detected");
                                         if (detected>=mine.size())
                                         {
                                             playAgain.setVisible(true);
+                                            face.setGraphic(new ImageView(won));
                                             for (int j=0;j<box.size();j++)
                                             {
                                                 if(mine.contains(j))
