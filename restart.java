@@ -426,6 +426,17 @@ public class restart extends Application {
                                             }
                                         }
                                         System.out.println(detected+" detected");
+                                        int remain = 40-flagged.size();
+                                         Text v=new Text();
+                                         v.setX(300);
+                                         v.setY(650);
+                                         v.setFont(Font.font("Arial", 20));
+                                         v.setFill(Color.BLACK);
+                                         v.setStroke(Color.BLACK);
+                                         v.setStrokeWidth(1);
+                                         v.setText("bombs remaining: "+remain);
+                                         v.setVisible(true);
+                                         root.getChildren().add(v);
                                         if (detected>=mine.size())
                                         {
                                             playAgain.setVisible(true);
