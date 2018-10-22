@@ -167,7 +167,8 @@ public class restart extends Application {
                 
                 ArrayList<Integer> flagged = new ArrayList<Integer>();
                 Set<Integer> mine = new HashSet<Integer>(); 
-                
+                Text v=new Text();
+                root.getChildren().add(v);
                 for(int i=0;i<box.size();i++)
                 {
                     box.get(i).setVisible(true);
@@ -396,6 +397,7 @@ public class restart extends Application {
                                     }
                                     playAgain.setVisible(true);
                                     face.setGraphic(new ImageView(sad));
+                                    root.getChildren().remove(v);
                             }
                         }
                         
@@ -426,8 +428,8 @@ public class restart extends Application {
                                             }
                                         }
                                         System.out.println(detected+" detected");
-                                        int remain = 40-flagged.size();
-                                         Text v=new Text();
+                                        int remain = 40-detected;
+                                         
                                          v.setX(300);
                                          v.setY(650);
                                          v.setFont(Font.font("Arial", 20));
@@ -436,10 +438,11 @@ public class restart extends Application {
                                          v.setStrokeWidth(1);
                                          v.setText("bombs remaining: "+remain);
                                          v.setVisible(true);
-                                         root.getChildren().add(v);
+                                         //root.getChildren().add(v);
                                         if (detected>=mine.size())
                                         {
                                             playAgain.setVisible(true);
+                                            root.getChildren().remove(v);
                                             face.setGraphic(new ImageView(won));
                                             for (int j=0;j<box.size();j++)
                                             {
@@ -493,6 +496,7 @@ public class restart extends Application {
                 win.setVisible(false);
                 lose.setVisible(false);
                 playAgain.setVisible(false);
+                
                 while(uncovered.size()>0)
                 {
                     uncovered.remove(0);
