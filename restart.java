@@ -48,6 +48,13 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.*;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.layout.StackPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import java.io.File;
 
 
 
@@ -88,6 +95,19 @@ public class restart extends Application {
         face.setTranslateY(0);
         face.setVisible(true);
         
+        String cheerFile = "cheer.wav";     // For example
+
+        Media cheer = new Media(new File(cheerFile).toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(cheer);
+        //mediaPlayer.play();
+        mediaPlayer.stop();
+        
+        String explodeFile = "grenade.wav";     // For example
+
+        Media explode = new Media(new File(explodeFile).toURI().toString());
+        MediaPlayer mediaPlayer2 = new MediaPlayer(explode);
+        //mediaPlayer2.play();
+        mediaPlayer2.stop();
         
 
         Button win=new Button();
@@ -153,6 +173,8 @@ public class restart extends Application {
             public void handle(ActionEvent event) {
                 //win.setVisible(true);
                 //lose.setVisible(true);
+                mediaPlayer2.stop();
+                mediaPlayer.stop();
                 face.setGraphic(new ImageView(neutral));
                 while(uncovered.size()>0)
                 {
@@ -387,6 +409,7 @@ public class restart extends Application {
                             if (mine.contains(uncovered.get(i))&&i!=0)
                             {
                                 box.get(uncovered.get(i)).setGraphic(new ImageView(bomb));
+                                mediaPlayer2.play();
                                 for (int k=0;k<box.size();k++)
                                     {
                                         if(mine.contains(k))
@@ -395,6 +418,7 @@ public class restart extends Application {
                                             
                                         }
                                     }
+                                    
                                     playAgain.setVisible(true);
                                     face.setGraphic(new ImageView(sad));
                                     root.getChildren().remove(v);
@@ -442,6 +466,7 @@ public class restart extends Application {
                                         if (detected>=mine.size())
                                         {
                                             playAgain.setVisible(true);
+                                            mediaPlayer.play();
                                             root.getChildren().remove(v);
                                             face.setGraphic(new ImageView(won));
                                             for (int j=0;j<box.size();j++)
